@@ -1,0 +1,76 @@
+---
+title: "Popular Songs Worldwide"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output: html_document
+---
+<style type="text/css">
+.navbar {
+  background-color:#1db954;
+}
+.main-container {
+  max-width: 1600px;
+  font-size: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+```{r doc-setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r import-libraries, include = FALSE}
+library(tidyverse)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+library(plotly)
+library(DT)
+library(utf8)
+```
+
+```{r import-data, echo = FALSE, message = FALSE}
+spotify_data <- read_csv("https://raw.githubusercontent.com/hotz1/JSC370-HW5/main/spotify_data_full.csv", 
+                         col_select = -c(`...1`))
+happiness_index <- read_csv("https://raw.githubusercontent.com/hotz1/JSC370-HW5/main/happiness_data.csv")
+```
+
+The table below shows all tracks which have appeared in a country's Top 200 Weekly Tracks on the [Spotify Charts website](https://spotifycharts.com/regional/global/daily/latest) at least 100 times during the first three months of 2022.
+
+As mentioned on the homepage, our data consists of 918 individual Top 200 Weekly Tracks lists from a total of 72 countries across the globe. Since each track can only appear once per list, the highest number of possible occurrences for an individual track is if it appears in all 918 Top 200 Tracks playlists which we collected from the Spotify Charts website.
+
+```{r individual-tracks-data, echo = FALSE, message = FALSE}
+# Group by song to collect information on each individual song
+tracks_data <- spotify_data %>% 
+  select(Song_Name, Artists, Song_Length, Danceability, Energy,
+         Valence, Track_ID, Track_URL, Weekly_Streams, Occurrences) %>%
+  group_by(Track_ID) %>%
+  mutate(Streams = sum(Weekly_Streams)) %>%
+  select(-Weekly_Streams) %>%
+  ungroup()
+
+tracks_data <- unique(tracks_data)
+```
+
+```{r popular-tracks-table, echo = FALSE, message = FALSE}
+popular_tracks <- tracks_data %>%
+  filter(Occurrences >= 100)
+
+popular_tracks <- popular_tracks %>%
+  mutate(Song_Name = as_utf8(Song_Name)) %>%
+  select(Song_Name, Artists, Occurrences, Streams, Track_ID) %>%
+  arrange(-Occurrences)
+
+embed_html <- '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5Z9KJZvQzH6PFmb8SNkxuk?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>'
+
+popular_tracks <- cbind(popular_tracks, embed_html)
+popular_tracks <- popular_tracks %>%
+  mutate(Link = stringr::str_replace(embed_html, '5Z9KJZvQzH6PFmb8SNkxuk', Track_ID)) %>%
+  select(Song_Name, Artists, Occurrences, Streams, Link) %>%
+  as.matrix()
+
+DT::datatable(popular_tracks, escape = FALSE, options = list(pageLength = 25),
+              colnames = c('Song Name', 'Song Artists', 'Occurrences in Top 200', 'Total Streams', 'Spotify Link'),
+              caption = "Songs Which Appeared in the Top 200 Songs on a country\'s weekly Spotify Charts at least 100 times between 
+              December 31, 2021 and April 1, 2022.")
+```

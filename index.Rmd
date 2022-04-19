@@ -1,0 +1,32 @@
+---
+title: "About The Data"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output: html_document
+---
+<style type="text/css">
+.navbar {
+  background-color:#1db954;
+}
+.main-container {
+  max-width: 1600px;
+  font-size: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+## Introduction: 
+
+This website contains interactive visualizations and tables corresponding to Spotify Charts data which was collected between December 31, 2021, and April 1, 2022, and the 2021 edition of the World Happiness Report.
+
+The data used for creating these charts and tables comes from the weekly Top 200 Tracks charts which were posted on the [Spotify Charts website](https://spotifycharts.com/regional/global/daily/latest) during this period of time. Overall, 72 countries were represented in this 13-week period, with all but three having a Top 200 Tracks chart for each of these 13 weeks.
+
+## This Website's Purpose
+
+The data which is visualized on this website was collected to answer one primary research question: "*Is there a correlation between countries' happiness levels and how happy the popular songs are in that country?*" 
+
+To determine the happiness level of a country, we used the data from the 2021 edition of the [World Happiness Report](https://worldhappiness.report/ed/2021/), in order to have a quantifiable metric which represents how happy the citizens of the country are with their lives in that country.
+
+To determine how happy the popular songs are in a particular country, we collected data from the Spotify Charts website during the first three months of 2022, in order to determine how happy these songs are.
+
+Beyond being one of the most comprehensive sources for playing music, Spotify also has created metrics which determine how happy a single song is. There are three main metrics which we will use to determine how happy a song is; the song's danceability, energy, and valence. These values are all rated on an interval from 0.0 to 1.0, and they are computed by Spotify themselves. Using the [Spotify API](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features), we can find these values for different popular songs in countries across the world, in order to determine how happy the popular songs in these countries are, with respect to these three happiness metrics.

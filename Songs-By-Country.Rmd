@@ -1,0 +1,75 @@
+---
+title: "Popular Songs Per Country"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output: html_document
+---
+<style type="text/css">
+.navbar {
+  background-color:#1db954;
+}
+.main-container {
+  max-width: 1600px;
+  font-size: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+```{r doc-setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r import-libraries, include = FALSE}
+library(tidyverse)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+library(plotly)
+library(DT)
+library(utf8)
+```
+
+```{r import-data, echo = FALSE, message = FALSE}
+spotify_data <- read_csv("https://raw.githubusercontent.com/hotz1/JSC370-HW5/main/spotify_data_full.csv", 
+                         col_select = -c(`...1`))
+happiness_index <- read_csv("https://raw.githubusercontent.com/hotz1/JSC370-HW5/main/happiness_data.csv")
+```
+
+The table below shows the 25 tracks which had the highest total number of streams in a particular country during the first three months of 2022. The streaming data for each track is based on the Top 200 Weekly Tracks charts for each country, which were displayed on the [Spotify Charts website](https://spotifycharts.com/regional/global/daily/latest).
+
+```{r individual-tracks-data, echo = FALSE, message = FALSE}
+# Group by song to collect information on each individual song
+tracks_data <- spotify_data %>% 
+  select(Country, Song_Name, Artists, Song_Length, Danceability, Energy,
+         Valence, Track_ID, Track_URL, Weekly_Streams) %>%
+  group_by(Country, Track_ID) %>%
+  mutate(Streams = sum(Weekly_Streams)) %>%
+  select(-Weekly_Streams) %>% 
+  ungroup()
+
+tracks_data <- unique(tracks_data)
+```
+
+```{r popular-tracks-table, echo = FALSE, message = FALSE}
+top_25_per_country <- tracks_data %>%
+  group_by(Country) %>%
+  top_n(25, Streams)
+
+
+top_25_per_country <- top_25_per_country %>%
+  mutate(Song_Name = as_utf8(Song_Name)) %>%
+  select(Country, Song_Name, Artists, Streams, Track_ID) %>%
+  arrange(Country, desc(Streams))
+
+embed_html <- '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5Z9KJZvQzH6PFmb8SNkxuk?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>'
+
+top_25_per_country <- cbind(top_25_per_country, embed_html)
+top_25_per_country <- top_25_per_country %>%
+  mutate(Link = stringr::str_replace(embed_html, '5Z9KJZvQzH6PFmb8SNkxuk', Track_ID)) %>%
+  select(Country, Song_Name, Artists, Streams, Link) %>%
+  as.matrix()
+
+DT::datatable(top_25_per_country, escape = FALSE, options = list(pageLength = 25),
+              colnames = c('Country', 'Song Name', 'Song Artists', 'Total Streams in Country', 'Spotify Link'),
+              caption = "Top 25 most-streamed Spotify Tracks per country between December 31, 2021 and April 1, 2022.")
+```
