@@ -4,6 +4,6 @@ The website includes interactive data visualizations for Spotify Charts data col
 
 The report is a short PDF with a detailed analysis of the data which I collected during the project and the tools used to learn more about the data which was sourced from the Spotify Charts website.
 
-The website is located at [INSERT URL HERE].
+The website is located at https://hotz1.github.io/Spotify-Charts-Project/.
 
-Last updated, April 19, 2022.
+Last updated, April 20, 2022.

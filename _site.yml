@@ -6,14 +6,18 @@ navbar:
       href: index.html
     - text: "Visualizations"
       href: Visualizations.html
-    - text: "Popular Songs Worldwide"
-      href: Songs-Global.html
-    - text: "Popular Songs Per Country"
-      href: Songs-By-Country.html
+    - text: "Popular Song Charts"
+      menu:
+        - text: "Popular Songs Worldwide"
+          href: Songs-Global.html
+        - text: "Popular Songs By Country"
+          href: Songs-By-Country.html
   right:
-    - icon: fa-github fa-lg
+    - text: "My GitHub Profile"
+      icon: fa-github fa-lg
       href: https://github.com/hotz1
-    - icon: fa-spotify fa-lg
+    - text: "My Spotify Profile"
+      icon: fa-spotify fa-lg
       href: https://open.spotify.com/user/22nwm6wd6d6uwz4jw6hd4bdua
 output:
   html_document:
