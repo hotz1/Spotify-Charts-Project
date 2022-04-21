@@ -30,9 +30,9 @@ library(utf8)
 ```
 
 ```{r import-data, echo = FALSE, message = FALSE}
-spotify_data <- read_csv("https://raw.githubusercontent.com/hotz1/JSC370-HW5/main/spotify_data_full.csv", 
+spotify_data <- read_csv("https://raw.githubusercontent.com/hotz1/Spotify-Charts-Project/main/data/spotify_data_full.csv", 
                          col_select = -c(`...1`))
-happiness_index <- read_csv("https://raw.githubusercontent.com/hotz1/JSC370-HW5/main/happiness_data.csv")
+happiness_index <- read_csv("https://raw.githubusercontent.com/hotz1/Spotify-Charts-Project/main/data/happiness_data.csv")
 ```
 
 The table below shows all tracks which have appeared in a country's Top 200 Weekly Tracks on the [Spotify Charts website](https://spotifycharts.com/regional/global/daily/latest) at least 100 times during the first three months of 2022.
