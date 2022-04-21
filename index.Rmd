@@ -23,7 +23,7 @@ The data used for creating these charts and tables comes from the weekly Top 200
 
 ## This Website's Purpose
 
-The data which is visualized on this website was collected to answer one primary research question: "*Is there a correlation between countries' happiness levels and how happy the popular songs are in that country?*" 
+The data which is visualized on this website was collected to answer one primary research question: "*Is there a correlation between countries' happiness levels and how happy the most popular songs are in that country?*" 
 
 To determine the happiness level of a country, we used the data from the 2021 edition of the [World Happiness Report](https://worldhappiness.report/ed/2021/), in order to have a quantifiable metric which represents how happy the citizens of the country are with their lives in that country.
 
