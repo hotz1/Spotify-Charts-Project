@@ -9,7 +9,7 @@ navbar:
     - text: "Popular Song Charts"
       menu:
         - text: "Popular Songs Worldwide"
-          href: Songs-Global.html
+          href: Songs-Worldwide.html
         - text: "Popular Songs By Country"
           href: Songs-By-Country.html
   right:

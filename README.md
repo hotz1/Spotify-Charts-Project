@@ -6,4 +6,4 @@ The report is a short PDF with a detailed analysis of the data which I collected
 
 The website is located at https://hotz1.github.io/Spotify-Charts-Project/.
 
-Last updated, April 20, 2022.
+Last updated, April 21, 2022.
