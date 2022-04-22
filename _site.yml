@@ -18,7 +18,7 @@ navbar:
         - text: "Access the Data"
           href: https://github.com/hotz1/Spotify-Charts-Project/tree/main/data
         - text: "Read the Report"
-          href: https://github.com/hotz1/Spotify-Charts-Project/raw/main/docs/JSC370-Final-Report.pdf
+          href: https://github.com/hotz1/Spotify-Charts-Project/raw/main/report/Spotify-Data-Report.pdf
         - text: "My GitHub Profile"
           icon: fa-github fa-lg
           href: https://github.com/hotz1
